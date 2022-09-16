@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-contacts-manager/static/css/main.e6c13ad2.css",
+    "main.js": "/react-contacts-manager/static/js/main.39378258.js",
+    "index.html": "/react-contacts-manager/index.html",
+    "main.e6c13ad2.css.map": "/react-contacts-manager/static/css/main.e6c13ad2.css.map",
+    "main.39378258.js.map": "/react-contacts-manager/static/js/main.39378258.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.39378258.js"
+  ]
+}
