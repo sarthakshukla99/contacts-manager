@@ -6,6 +6,7 @@ function Contacts() {
     const [users, setUsers] = useState([]);
     var url = "https://jsonplaceholder.typicode.com/users";
 
+    // function for fetching api
     const fetchData = async () => {
         const response = await fetch(url);
         const data = await response.json();
@@ -13,6 +14,7 @@ function Contacts() {
         setUsers(data);
     };
 
+    // fetching data
     useEffect(() => {
         // call the function
         fetchData();
@@ -20,6 +22,7 @@ function Contacts() {
     }, []);
 
 
+    // function for CREATE contact
     const handleAddContact = async (name, email) => {
         let id = Date.now();
         console.log('USER ID =>', id);
@@ -44,7 +47,7 @@ function Contacts() {
     }
 
 
-    //delete contact function
+    //DELETE contact function
     const handleDeleteContact = async (id) => {
         let url = `https://jsonplaceholder.typicode.com/users/${id}`
         await fetch(url, {
@@ -57,6 +60,7 @@ function Contacts() {
         console.log('USER DELETED !!!');
     }
 
+    // function for UPDATE contact
     const handleUpdateContact = async (name,email,id)=>{
         let url = `https://jsonplaceholder.typicode.com/users/${id}`
         const response = await fetch(url, {
@@ -86,32 +90,35 @@ function Contacts() {
 
     let number = 1
     return (
-        <div className="container">
+        <div className="container ">
             <ContactForm addContact={handleAddContact}/>
 
-            <table className="table table-success table-striped">
-                <thead>
-                    <tr>
-                        <th className="text-center" scope="col">#</th>
-                        <th className="text-center" scope="col">Name</th>
-                        <th className="text-center" scope="col">Email</th>
-                        <th className="text-center" scope="col" colSpan={2}>Operations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {users.map((user) => (
-                            <ContactTable
-                                number={number++}
-                                id={user.id}
-                                name={user.name}
-                                email={user.email}
-                                key={user.id}
-                                handleDelete={handleDeleteContact}
-                                handleUpdate={handleUpdateContact}
-                            />
-                        ))}
-                </tbody>
-            </table>
+            <div className="table-responsive">
+                <table className="table table-success table-striped ">
+                    <thead>
+                        <tr>
+                            <th className="text-center" scope="col">#</th>
+                            <th className="text-center" scope="col">Name</th>
+                            <th className="text-center" scope="col">Email</th>
+                            <th className="text-center" scope="col" colSpan={2}>Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {/* looping all the users from api  */}
+                    {users.map((user) => (
+                                <ContactTable
+                                    number={number++}
+                                    id={user.id}
+                                    name={user.name}
+                                    email={user.email}
+                                    key={user.id}
+                                    handleDelete={handleDeleteContact}
+                                    handleUpdate={handleUpdateContact}
+                                />
+                            ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

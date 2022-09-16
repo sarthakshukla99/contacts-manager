@@ -7,6 +7,7 @@ function ContactForm(props) {
     const [email, setEmail ] = useState('')
 
 
+    // // function for handling change in input contact
     const handleChange = (inputType, e) => {
         if (inputType === "name") {
           setName(e.target.value)
@@ -15,6 +16,7 @@ function ContactForm(props) {
         setEmail(e.target.value)
       };
 
+    // function for submitting data and CREATING contact
     const handleSubmit = (e) => {
         e.preventDefault();
         if(name && email){
@@ -75,8 +77,5 @@ function ContactForm(props) {
     );
 }
 
-const th = {
-    textAlign: 'center'
-}
 
 export default ContactForm;
