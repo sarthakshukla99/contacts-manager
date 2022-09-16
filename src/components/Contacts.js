@@ -3,26 +3,64 @@ import ContactForm from "./ContactForm";
 import ContactTable from "./ContactTable";
 
 function Contacts() {
-    const [user, setUser] = useState([]);
+    const [users, setUsers] = useState([]);
+    var url = "https://jsonplaceholder.typicode.com/users";
 
     const fetchData = async () => {
-        const url = "https://jsonplaceholder.typicode.com/users";
         const response = await fetch(url);
         const data = await response.json();
         // console.log(data);
-        setUser(data);
+        setUsers(data);
     };
 
     useEffect(() => {
         // call the function
         fetchData();
-        console.log(user);
+        console.log(users);
     }, []);
+
+
+    const handleAddContact = async (name, email) => {
+        let id = Date.now();
+        console.log('USER ID =>', id);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                name,
+                email
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        })
+
+        const data = await response.json()
+        console.log('CONTACT ADDED ==>', data);
+
+        let updatedUsers = [{name, email, id}].concat(users);
+
+        setUsers(updatedUsers);
+    }
+
+
+    //delete contact function
+    const handleDeleteContact = async (id) => {
+        let url = `https://jsonplaceholder.typicode.com/users/${id}`
+        await fetch(url, {
+            method: "DELETE"
+        });
+
+        let updatedUsers = users.filter((user)=> user.id !== id);
+
+        setUsers(updatedUsers);
+        console.log('USER DELETED !!!');
+    }
 
     let number = 1
     return (
         <div className="container">
-            <ContactForm />
+            <ContactForm addContact={handleAddContact}/>
 
             <table className="table table-success table-striped">
                 <thead>
@@ -34,12 +72,14 @@ function Contacts() {
                     </tr>
                 </thead>
                 <tbody>
-                {user.map((item) => (
+                {users.map((user) => (
                             <ContactTable
                                 number={number++}
-                                name={item.name}
-                                email={item.email}
-                                key={item.id}
+                                id={user.id}
+                                name={user.name}
+                                email={user.email}
+                                key={user.id}
+                                handleDelete={handleDeleteContact}
                             />
                         ))}
                 </tbody>

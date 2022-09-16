@@ -1,11 +1,7 @@
 import React from "react";
 
 function ContactTable(props) {
-    const handleDelete = () => {
-        
-    }
-
-    let number = 1;
+    
     return (
         <tr>
             <th className="text-center" scope="row">
@@ -15,7 +11,7 @@ function ContactTable(props) {
             <td className="text-center">{props.email}</td>
             <td className="text-center">
                 <button className="btn btn-warning mx-3">Edit</button>
-                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                <button className="btn btn-danger" onClick={()=> props.handleDelete(props.id)} >Delete</button>
             </td>
         </tr>
     );

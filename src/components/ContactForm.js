@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useInputVal } from "../hooks";
 
-function ContactForm() {
-    const name = useInputVal("");
-    const phone = useInputVal("");
+function ContactForm(props) {
+
+    const [name, setName ] = useState('')
+    const [email, setEmail ] = useState('')
+
+
+
+    const handleChange = (inputType, e) => {
+        if (inputType === "name") {
+          setName(e.target.value)
+          return;
+        }
+        setEmail(e.target.value)
+      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(name && email){
+            props.addContact(name, email);
+            setName('')
+            setEmail('')
+        }
     };
 
-    const handleCreate = (e) => {
-        console.log(name.value);
-        console.log(phone.value);
-    };
+
+
     return (
         <div className="container">
             <form className="container my-4" onSubmit={handleSubmit}>
@@ -28,7 +42,8 @@ function ContactForm() {
                         className="form-control"
                         id="exampleFormControlInput1"
                         placeholder="enter name"
-                        {...name}
+                        value={name}
+                        onChange={(e) => handleChange("name", e)}
                     />
                 </div>
                 <div className="mb-3">
@@ -36,20 +51,21 @@ function ContactForm() {
                         htmlFor="exampleFormControlInput1"
                         className="form-label"
                     >
-                        Phone
+                        Email
                     </label>
                     <input
                         type="text"
                         className="form-control"
                         id="exampleFormControlInput1"
-                        placeholder="enter Phone"
-                        {...phone}
+                        placeholder="enter email"
+                        value={email}
+                        onChange={(e) => handleChange("email", e)}
                     />
                 </div>
                 <button
                     type="submit"
                     className="btn btn-warning"
-                    onClick={handleCreate}
+                    onClick={handleSubmit}
                 >
                     Add Contact
                 </button>
