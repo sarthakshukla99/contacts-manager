@@ -55,27 +55,7 @@ function ContactForm() {
                 </button>
             </form>
 
-            <table className="table table-success table-striped">
-                <thead>
-                    <tr>
-                        <th className="text-center" scope="col">#</th>
-                        <th className="text-center" scope="col">Name</th>
-                        <th className="text-center" scope="col">Phone</th>
-                        <th className="text-center" scope="col" colSpan={2}>Operations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th className="text-center" scope="row">1</th>
-                        <td className="text-center">Sarthak</td>
-                        <td className="text-center">83838383</td>
-                        <td className="text-center" >
-                            <button className="btn btn-warning mx-3">Edit</button>
-                            <button className="btn btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        
         </div>
     );
 }
