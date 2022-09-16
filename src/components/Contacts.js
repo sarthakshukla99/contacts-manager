@@ -57,6 +57,33 @@ function Contacts() {
         console.log('USER DELETED !!!');
     }
 
+    const handleUpdateContact = async (name,email,id)=>{
+        let url = `https://jsonplaceholder.typicode.com/users/${id}`
+        const response = await fetch(url, {
+            method: "PUT",
+            body: JSON.stringify({
+                id,
+                name,
+                email,
+            }),
+            headers:{
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        });   
+        const data = await response.json()
+        console.log('CONTACT UPDATED ==>', data);
+
+        let updatedUser = users.map((user) => {
+            if(user.id === id){
+                user.name = name;
+                user.email = email;
+            }
+            return user
+        });
+
+        setUsers(updatedUser);
+    }
+
     let number = 1
     return (
         <div className="container">
@@ -80,6 +107,7 @@ function Contacts() {
                                 email={user.email}
                                 key={user.id}
                                 handleDelete={handleDeleteContact}
+                                handleUpdate={handleUpdateContact}
                             />
                         ))}
                 </tbody>

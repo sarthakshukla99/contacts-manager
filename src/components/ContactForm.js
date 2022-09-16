@@ -7,7 +7,6 @@ function ContactForm(props) {
     const [email, setEmail ] = useState('')
 
 
-
     const handleChange = (inputType, e) => {
         if (inputType === "name") {
           setName(e.target.value)
